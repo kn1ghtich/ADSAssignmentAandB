@@ -17,7 +17,7 @@ public class Main {
 // Process the queries
         for (int i = 0; i < Q; i++) {
             String queryType = scanner.next();
-            if (queryType.equals("Insert")) {
+            if (querdwaadawdawdawdwadawdadawdyType.equals("Insert")) {
                 31
                 32
             }
