@@ -1,10 +1,13 @@
 package A.A10;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 class Node {
-    Integer data;
+    int data;
     Node next;
 
-    public Node(Integer data) {
+    public Node(int data) {
         this.data = data;
         this.next = null;
     }
@@ -13,8 +16,8 @@ class Node {
 public class LinkedList {
     private Node head;
 
-    public void addFirst(Object data) {
-        Node newNode = new Node((Integer) data);
+    public void addFirst(int data) {
+        Node newNode = new Node(data);
         if (head == null) {
             head = newNode;
             return;
@@ -23,8 +26,8 @@ public class LinkedList {
         head = newNode;
     }
 
-    public void addLast(Object data) {
-        Node newNode = new Node((Integer) data);
+    public void addLast(int data) {
+        Node newNode = new Node(data);
 
         if (head == null) {
             head = newNode;
@@ -39,16 +42,16 @@ public class LinkedList {
         current.next = newNode;
     }
 
-    public Object removeLast() {
+    public void removeLast() {
         if (head == null) {
             System.out.println("List is empty.");
-            return null;
+            return;
         }
 
         // Check for 1 node
         if (head.next == null) {
             head = null;
-            return null;
+            return;
         }
 
         // Traverse to the second last node
@@ -59,9 +62,7 @@ public class LinkedList {
 
         // Update the next pointer of the last node to null
         //garbage collector will remove last because nothing points to cutted node
-        Object result = current.next.data;
         current.next = null;
-        return result;
     }
 
     public void printLinkedList() {
@@ -78,7 +79,7 @@ public class LinkedList {
         System.out.println("null (the end of the LinkedList).");
     }
 
-    public boolean search(Object element) {
+    public boolean search(int element) {
         // check for empty list
         if (head == null) {
             return false;
@@ -87,7 +88,7 @@ public class LinkedList {
         // go through the list
         Node current = head;
         while (current != null){
-            if (current.data.equals(element)) {
+            if (current.data == element) {
                 return true;
             }
             current = current.next; // go to next till null
@@ -132,12 +133,13 @@ public class LinkedList {
         return true;
     }
 
-    public Object pop(Object element) {
-        Object result = null;
+    /*
+    public int pop(int element) {
+        int result;
 
         if (head == null) {
             System.out.println("List is empty.");
-            return null;
+            return -1;
         }
 
         if (head.data == element ) {
@@ -163,7 +165,9 @@ public class LinkedList {
         current.next = current.next.next;
         return result;
     }
+     */
 
+    /*
     public static LinkedList concat(LinkedList list1, LinkedList list2) {
         LinkedList newList = new LinkedList();
 
@@ -193,45 +197,27 @@ public class LinkedList {
         return newList;
     }
 
+     */
 
-    public void insertionSort() {
+    public LinkedList insertionSort() {
         // Handle empty or single-node list
         if (head == null || head.next == null) {
-            return;
+            return null;
         }
 
-        // Set the sorted part (initially just the head)
-        Node sorted = head;
-        Node current = head.next;
+        ArrayList<Integer> sortss = new ArrayList<>();
 
+        Node current = head;
         while (current != null) {
-            // Extract the current node
-            Node next = current.next;
-
-            // Find the correct position for the current node in the sorted part
-            Node prev = null;
-            Node insertAfter = sorted;
-            while (insertAfter != null && current.data > insertAfter.data) {
-                prev = insertAfter;
-                insertAfter = insertAfter.next;
-            }
-
-            // If the current node needs to be inserted at the beginning
-            if (prev == null) {
-                current.next = sorted;
-                sorted = current;
-            } else {
-                // Insert the current node between prev and insertAfter
-                prev.next = current;
-                current.next = insertAfter;
-            }
-
-            // Move to the next node
-            current = next;
+            sortss.add(current.data);
+            current = current.next;
         }
-
-        // Update the head pointer to point to the sorted list
-        head = sorted;
+        sortss.sort(Integer::compareTo);
+        LinkedList Newlist = new LinkedList();
+        for (int i = 0; i < sortss.size(); i++) {
+            Newlist.addLast(sortss.get(i));
+        }
+        return Newlist;
     }
 /*
 
@@ -268,8 +254,8 @@ public class LinkedList {
         list2.addLast(30);
         list2.printLinkedList();
 
-        list2.insertionSort();
-        list2.printLinkedList();
+        LinkedList list1 = list2.insertionSort();
+        list1.printLinkedList();
 
 
 
